@@ -3,7 +3,7 @@ import { Iuser } from "../../../../entities/user";
 
 import { IuserRepository } from "../../../../useCases/interface/repositoryInterface/userRepository";
 
-import {createUser} from '../userRepository/usre/ index'
+import {createUser} from './user/ index'
 
 export class userRepository implements IuserRepository{
     constructor(private userModels: typeof userModel){}

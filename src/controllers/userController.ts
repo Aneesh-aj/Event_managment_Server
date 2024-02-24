@@ -12,6 +12,8 @@ export class UserController{
     }
 
     async createUser(req:Req, res: Res ,next : Next){
+        console.log("the backedn ",req.body)
         const user = await this.userUseCase.creatUser(req.body , next)
+         
     }
 }
