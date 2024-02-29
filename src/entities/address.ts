@@ -3,5 +3,6 @@ export interface Iaddress{
     state:string,
     city:string,
     pincode:number,
-    userId: string
+    building:string,
+    userId: string,
 }

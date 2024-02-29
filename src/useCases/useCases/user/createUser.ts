@@ -1,7 +1,12 @@
-import { IuserRepository } from "../../interface/repositoryInterface/userRepository";
+import { Iuser } from "../../../entities/user"
 
 
-export const createUser = async (userRepository:IuserRepository,name:string,email:string,password:string): Promise <string | void> =>{
-    const creating = await userRepository.createUser({name,email,password})
+
+export const createUser= async (newUser:Iuser,otp:string):Promise <string>=>{  
      
+    console.log("inside the creater",newUser)
+    console.log("next is otp",otp)
+
+
+     return "hh"
 }

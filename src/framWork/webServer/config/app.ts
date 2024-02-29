@@ -2,7 +2,7 @@ import express, { NextFunction,Router,  Request, Response} from 'express'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import { UserRoute } from '../routes/UserRoute'
-
+import { OrganizerRoute } from '../routes/OrganizerRoute'
 
 export const app = express()
 
@@ -18,6 +18,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
 app.use("/user",UserRoute(express.Router()))
+app.use("/orgnaizer",OrganizerRoute(express.Router()))
 
 
 
