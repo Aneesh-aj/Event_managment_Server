@@ -50,7 +50,8 @@ export class UserUseCase implements IuserUseCase{
      }
 
      async createUser(newUser:Iuser,otp:string, next: NextFunction): Promise<string | void> {
-          const user = await createUser(newUser,otp)
+          const user = await createUser(newUser,otp,this.otpRepository,this.userRepository)
+          return user
       }
 
      

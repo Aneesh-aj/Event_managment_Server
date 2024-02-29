@@ -1,5 +1,6 @@
 export interface Iuser{
-    name:String,
+    _id?:string,
+    name:string,
     email:string,
     password:string
 }

@@ -16,7 +16,7 @@ export class UserController{
         console.log("whole body",req.body)
         const user = await this.userUseCase.userSignup(req.body.email , next)
         console.log(" working end")
-        return
+        res.json("ok")
          
     }
 
@@ -24,6 +24,8 @@ export class UserController{
     async createUser(req:Req, res : Res ,next:Next){
         console.log("int the createuser controller")
         const user = await this.userUseCase.createUser({name:req.body.name,email:req.body.email,password:req.body.password},req.body.otp,next)
+          console.log("at the end of the uer",user)
+          res.send('/user/profile')
     }
 
     // async organizerLogin(req:Req, res : Res, next : Next){

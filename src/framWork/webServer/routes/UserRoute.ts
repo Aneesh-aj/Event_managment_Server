@@ -3,7 +3,7 @@ import { userController } from "./injections/Injection"
 
 
 export function UserRoute(router: Route){
-    router.post('/register', (req : Req, res : Res , next : Next)=>{
+    router.post('/signup', (req : Req, res : Res , next : Next)=>{
            
         userController.signup(req,res,next)
     })
