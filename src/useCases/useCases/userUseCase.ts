@@ -11,6 +11,7 @@ import { NextFunction } from "express";
 import { IotpGenerate } from "../interface/service/otpGenerate";
 import { IotpRepository } from "../interface/repositoryInterface/otpRepository";
 import { IsentEmail } from "../interface/service/sentEmail";
+import { Ifirebase } from "../interface/service/firebase";
 
 
 export class UserUseCase implements IuserUseCase{

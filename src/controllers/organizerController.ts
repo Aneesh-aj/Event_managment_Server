@@ -6,10 +6,14 @@ export class OrganizerController{
 
      constructor(organizerUseCase: IorganizerUseCase){
          this.organizerUsecase = organizerUseCase
+         
      }
 
      async createOrganizer(req:Req,res: Res, next : Next){
          console.log("here at organiizer",req.body)
+         console.log("ownerId:", typeof req.body.license);
+
+
           const result = await  this.organizerUsecase.createOrganizer(req.body,next)
           console.log("here at organiizer  result",result)
          res.json(result)

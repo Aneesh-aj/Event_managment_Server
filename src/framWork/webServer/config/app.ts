@@ -18,7 +18,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
 app.use("/user",UserRoute(express.Router()))
-app.use("/orgnaizer",OrganizerRoute(express.Router()))
+app.use("/organizer",OrganizerRoute(express.Router()))
 
 
 

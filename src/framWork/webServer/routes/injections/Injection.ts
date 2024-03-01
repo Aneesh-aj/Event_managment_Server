@@ -7,6 +7,11 @@ import { Encrypt } from "../../../service/hashPassword";
 import { OtpGenerate } from "../../../service/otpGenerator";
 import { OtpRepository } from "../../../database/repository/otpRepository"
 import { SentEmail } from "../../../service/sentEmail";
+import { Firebase } from "../../../service/firebase";
+
+
+
+const firebase = new Firebase()
 const jwttoken = new JWTtoken()
 const otpGenerate = new OtpGenerate()
 const otprepository = new OtpRepository()
@@ -14,7 +19,7 @@ const sentemail = new SentEmail()
 
 const userrepository = new userRepository(userModel)
 const userusecase = new UserUseCase(userrepository,jwttoken,otpGenerate,otprepository,sentemail)
-const  userController = new UserController(userusecase)
+const  userController = new UserController(userusecase,firebase)
 
 import organizerModel from "../../../database/model/organizer";
 import addressModel from "../../../database/model/address";
@@ -22,10 +27,12 @@ import { OrganizerRepository } from "../../../database/repository/organizerRepos
 import { OrganizerController } from "../../../../controllers/organizerController";
 import { OrganizerUseCase } from "../../../../useCases/useCases/organizerUseCase";
 
+
 const bycryptsurvice =new  Encrypt()
 
 const organizerrepository = new OrganizerRepository(organizerModel)
-const organizerusecase = new  OrganizerUseCase(organizerrepository,bycryptsurvice,jwttoken)
+
+const organizerusecase = new  OrganizerUseCase(organizerrepository,bycryptsurvice,jwttoken,firebase)
 const organizerController = new  OrganizerController(organizerusecase)
 
 

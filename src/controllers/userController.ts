@@ -1,4 +1,5 @@
 import {Req,Res,Next} from "../framWork/types/serverPackageTypes"
+import { Ifirebase } from "../useCases/interface/service/firebase"
 import { IuserUseCase } from "../useCases/interface/usecase/userUseCase"
 
 
@@ -6,9 +7,11 @@ import { IuserUseCase } from "../useCases/interface/usecase/userUseCase"
 export class UserController{
      
     private userUseCase : IuserUseCase
+    private readonly firebase : Ifirebase
 
-    constructor(userUseCase: IuserUseCase){
+    constructor(userUseCase: IuserUseCase,firebase:Ifirebase){
         this.userUseCase = userUseCase
+        this.firebase = firebase
     }
 
     async signup(req:Req, res: Res ,next : Next){
