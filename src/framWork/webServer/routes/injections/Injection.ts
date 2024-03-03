@@ -7,19 +7,18 @@ import { Encrypt } from "../../../service/hashPassword";
 import { OtpGenerate } from "../../../service/otpGenerator";
 import { OtpRepository } from "../../../database/repository/otpRepository"
 import { SentEmail } from "../../../service/sentEmail";
-import { Firebase } from "../../../service/firebase";
 
 
+const bycryptsurvice =new  Encrypt()
 
-const firebase = new Firebase()
 const jwttoken = new JWTtoken()
 const otpGenerate = new OtpGenerate()
 const otprepository = new OtpRepository()
 const sentemail = new SentEmail()
 
 const userrepository = new userRepository(userModel)
-const userusecase = new UserUseCase(userrepository,jwttoken,otpGenerate,otprepository,sentemail)
-const  userController = new UserController(userusecase,firebase)
+const userusecase = new UserUseCase(userrepository,jwttoken,otpGenerate,otprepository,sentemail,bycryptsurvice)
+const  userController = new UserController(userusecase)
 
 import organizerModel from "../../../database/model/organizer";
 import addressModel from "../../../database/model/address";
@@ -27,13 +26,16 @@ import { OrganizerRepository } from "../../../database/repository/organizerRepos
 import { OrganizerController } from "../../../../controllers/organizerController";
 import { OrganizerUseCase } from "../../../../useCases/useCases/organizerUseCase";
 
+import { AdminController} from "../../../../controllers/adminController";
+import { AdminUsecase } from "../../../../useCases/useCases/adminUsecase";
+import { AdminRepository } from "../../../database/repository/adminRepository/adminRepository";
 
-const bycryptsurvice =new  Encrypt()
+const adminrepository = new AdminRepository()
 
+const adminusecase = new AdminUsecase(bycryptsurvice,adminrepository,jwttoken)
 const organizerrepository = new OrganizerRepository(organizerModel)
-
-const organizerusecase = new  OrganizerUseCase(organizerrepository,bycryptsurvice,jwttoken,firebase)
+const organizerusecase = new  OrganizerUseCase(organizerrepository,bycryptsurvice,otpGenerate,otprepository,sentemail)
 const organizerController = new  OrganizerController(organizerusecase)
+const adminController = new AdminController(adminusecase)
 
-
-export { userController,organizerController}
+export { userController,organizerController,adminController}

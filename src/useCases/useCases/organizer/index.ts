@@ -1,6 +1,8 @@
-import {Signup} from "./Signup"
+import {createOrganizers} from "./createOrgnaizer"
 import { login } from "./login"
+import { signup } from "./signup"
 
-export{Signup,
-       login
+export{createOrganizers,
+       login,
+       signup
     }

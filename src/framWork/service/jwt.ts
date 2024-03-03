@@ -1,22 +1,23 @@
 import { Iuser } from "../../entities/user";
 import { Iorganizer } from "../../entities/organizer";
-import { Ijwt,IToken } from "../../useCases/interface/service/jwt";
-import jwt from 'jsonwebtoken'
+import { Iuserjwt,IToken } from "../../useCases/interface/service/jwt";
+import jwt, { JwtPayload } from 'jsonwebtoken'
+require('dotenv').config()
 
-export class JWTtoken implements Ijwt{
+export class JWTtoken implements Iuserjwt{
+  JWT_VERIFICATION_KEY= process.env.JWT_VERIFICATION_KEY || ""
+  JWT_ACCESS_KEY = process.env.JWT_ACCESS_KEY || ""
+  JWT_REFRESH_KEY = process.env.JWT_REFRESH_KEY || ""
      
-      JWT_VERIFICATION_KEY=' HELOSOOSO'
-      JWT_ACCESS_KEY ='HSFHSKFSKFSH'
-      JWT_REFRESH_KEY = "JSLDJFLSJDFS"
 
-      async createVerificationJWT(payload: Iuser | Iorganizer): Promise<string> {
+      async createVerificationJWT(payload: any): Promise<any> {
           const verifyToken = await jwt.sign(payload, this.JWT_VERIFICATION_KEY,{
              expiresIn:'15m',
           })
           return verifyToken
       }
 
-      async createAccessAndRefreshToken(id: string, role: "user" | "organizer"): Promise<IToken> {
+      async createAccessAndRefreshToken(id: string, role:string ): Promise<IToken> {
           const payload = {id , role}
            const accessToken = await jwt.sign(payload , this.JWT_ACCESS_KEY,{
               expiresIn:'5h'
@@ -29,8 +30,9 @@ export class JWTtoken implements Ijwt{
            return {accessToken,refreshToken}
       }
 
-      async  verifyJwt(token: string): Promise<Iuser | Iorganizer | { userId: string; email: string; iat: number; exp: number; }> {
-          return (await jwt.verify(token, this.JWT_VERIFICATION_KEY)) as Iuser | Iorganizer
+      async  verifyJwt(token: string): Promise<any> {
+        const data = await jwt.verify(token, this.JWT_VERIFICATION_KEY)
+        return data
       }
 
       async  forgotPasswordToken(userId: string, email: string): Promise<string> {

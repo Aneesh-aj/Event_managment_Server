@@ -11,6 +11,11 @@ export function UserRoute(router: Route){
     router.post('/createUser', (req: Req, res : Res , next : Next)=>{
            userController.createUser(req,res,next)
     })
+
+    router.post('/login',(req:Req, res: Res ,next:Next)=>{
+        console.log("entering to the  router")
+         userController.organizerLogin(req, res, next)
+    })
     return router
 
 }

@@ -1,54 +1,74 @@
 import { IorganizerRepository } from "../interface/repositoryInterface/organizerRepository";
 import { IorganizerUseCase } from "../interface/usecase/organizerUseCase";
 import { Ihashpassword } from "../interface/service/hashpassword";
-import { Signup} from './organizer/index'
+import { createOrganizers,signup} from './organizer/index'
+import { IotpGenerate } from "../interface/service/otpGenerate";
+import { IsentEmail } from "../interface/service/sentEmail";
+import { IotpRepository } from "../interface/repositoryInterface/otpRepository";
 import { Next } from "../../framWork/types/serverPackageTypes";
-import { Ijwt } from "../interface/service/jwt";
-import { Ifirebase } from "../interface/service/firebase";
+// import { Ijwt } from "../interface/service/jwt";
 
 export class OrganizerUseCase  implements IorganizerUseCase{
       private readonly organizerRepository : IorganizerRepository
       private readonly hashpassword : Ihashpassword
-      private readonly jwt : Ijwt
-      private readonly firebase : Ifirebase
+      // private readonly jwt : Ijwt
+      private readonly otpGenerate : IotpGenerate
+      private readonly otpRepository : IotpRepository
+      private readonly sentEmail : IsentEmail
+
       constructor( organizerRepository : IorganizerRepository,
          hashpassword : Ihashpassword,
-         jwt : Ijwt,
-         firebase: Ifirebase
+         // jwt : Ijwt,
+         otpGenerate: IotpGenerate,
+         otpRepository: IotpRepository,
+          sentEmail : IsentEmail
          )
          {
          this.organizerRepository = organizerRepository
          this.hashpassword = hashpassword
-         this.jwt = jwt
-         this.firebase = firebase
+         // this.jwt = jwt
+         this.otpGenerate = otpGenerate
+         this.otpRepository = otpRepository
+         this.sentEmail = sentEmail
       }
 
-     async createOrganizer({ name, email, password, country, state, city, pincode, ownerId, phoneNumber, companyLicense, companyInsurance, bankPassbook, building }: { name: string; email: string; password: string; country: string; state: string; city: string; pincode: number; ownerId: object; phoneNumber: string; companyLicense: object; companyInsurance: object; bankPassbook: object; building: string; }, next: Next): Promise<void | String> {
+      async signupOrganzier(email: string): Promise<void | string> {
+
+              console.log("fron use case ",email)
+              const result = await signup(this.otpGenerate, this.otpRepository,email,this.sentEmail)
+              console.log("afters the orgnaizer usecase")
+          return "hello"
+      }
+
+     async createOrganizer({ name, email, password, country, state, city, pincode, ownerId, phoneNumber, companyLicense, companyInsurance, bankPassbook, building,otp }: { name: string; email: string; password: string; country: string; state: string; city: string; pincode: number; ownerId: any; phoneNumber: string; companyLicense: any; companyInsurance: any; bankPassbook: any; building: string; otp:string }, next: Next): Promise<void | String> {
           try {
-            console.log('here at the usecase')
-        let result = await Signup(
-               this.firebase,
+            console.log('here at the usecase and email',email,"and ",name)
+        let result = await createOrganizers(
                this.organizerRepository,
                this.hashpassword ,
-              //  this.jwt, 
-               // name,
-               // email,
-               // password,
+               name,
+               email,
+               password,
                ownerId,
-               // phoneNumber,
+               phoneNumber,
                companyLicense,
                companyInsurance,
                bankPassbook,
-               // building,
-               // country,
-               // state,
-               // city,
-               // pincode
+               building,
+               country,
+               state,
+               city,
+               pincode,
+               otp,
+               this.otpRepository
                ) 
           } catch (error) {
              console.log(error)
           }
       }
+
+
+
 
      
 }

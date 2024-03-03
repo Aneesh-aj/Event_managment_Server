@@ -4,9 +4,10 @@ export interface Iorganizer {
     email: string,
     phoneNumber: string,
     password: string,
-    ownerId: string,
-    companyLicense: string,
-    companyInsurance: string,
-    bankPassbook: string
+    ownerId: any,
+    companyLicense: any,
+    companyInsurance: any,
+    bankPassbook: any,
+    approved?:boolean
 
 }

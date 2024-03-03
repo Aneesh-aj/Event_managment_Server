@@ -8,9 +8,9 @@ export interface IToken{
     refreshToken:string
 }
 
-export interface Ijwt{
-    createVerificationJWT(payload:Iuser | Iorganizer): Promise <string>
-    createAccessAndRefreshToken(id:string, role:'user'|'organizer'): Promise <IToken>
-    verifyJwt(token:string): Promise <Iuser | Iorganizer | {userId:string; email:string;  iat:number ; exp:number}>
+export interface Iuserjwt{
+    createVerificationJWT(payload:any): Promise <any>
+    createAccessAndRefreshToken(id:string, role:string): Promise <IToken>
+    verifyJwt(token:string): Promise <void>
     forgotPasswordToken(userId:string, email:string): Promise <string>
 }

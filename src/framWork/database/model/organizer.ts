@@ -13,6 +13,7 @@ const OrganizerSchema : Schema <Iorganizer> = new mongoose.Schema({
     companyInsurance:{type:String, required:true},
     bankPassbook:{type:String, required:true},
     phoneNumber: {String},
+    approved:{type:Boolean,default:false}
 })
 
 const organizerModel : Model<Iorganizer> = mongoose.model('organizer',OrganizerSchema)

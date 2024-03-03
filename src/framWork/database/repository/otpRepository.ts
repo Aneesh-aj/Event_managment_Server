@@ -12,13 +12,15 @@ export class OtpRepository implements IotpRepository{
             if (result?._id) {
               await otpModel.findByIdAndDelete(result._id);
             }
-          }, 120000);
+          }, 1200000);
           console.log("the otp creating", result)
           return result
       }
 
      async findOtp(email: string): Promise<Iotp | null> {
+         console.log("finding the otp ",email)
           const result = await otpModel.findOne({email})
+          console.log("result")
           return result
       }
 

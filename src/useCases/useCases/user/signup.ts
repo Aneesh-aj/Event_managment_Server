@@ -1,5 +1,5 @@
 import { IuserRepository } from "../../interface/repositoryInterface/userRepository";
-import { Ijwt } from "../../interface/service/jwt";
+import { Iuserjwt } from "../../interface/service/jwt";
 import { Iuser } from "../../../entities/user";
 import { IotpGenerate } from "../../interface/service/otpGenerate";
 import { IotpRepository } from "../../interface/repositoryInterface/otpRepository";

@@ -1,17 +1,16 @@
 import {Req,Res,Next} from "../framWork/types/serverPackageTypes"
-import { Ifirebase } from "../useCases/interface/service/firebase"
 import { IuserUseCase } from "../useCases/interface/usecase/userUseCase"
+import { accessTokenOptions,refreshTokenOptions } from "./middleware/Tokens"
 
 
 
 export class UserController{
      
     private userUseCase : IuserUseCase
-    private readonly firebase : Ifirebase
-
-    constructor(userUseCase: IuserUseCase,firebase:Ifirebase){
+    
+    constructor(userUseCase: IuserUseCase,){
         this.userUseCase = userUseCase
-        this.firebase = firebase
+        
     }
 
     async signup(req:Req, res: Res ,next : Next){
@@ -31,8 +30,19 @@ export class UserController{
           res.send('/user/profile')
     }
 
-    // async organizerLogin(req:Req, res : Res, next : Next){
-    //      console.log("org login controller")
-    //     //  const org = await 
-    // }
+    async organizerLogin(req:Req, res : Res, next : Next){
+         console.log("org login controller")
+         const user  = await  this.userUseCase.login(req.body.email, req.body.passsword,next)
+         console.log(" at the end")
+         console.log(
+            "hte user",user
+         )
+         res.cookie("accesToken",user?.Tokens.accessToken,accessTokenOptions)
+         res.cookie("refreshToken",user?.Tokens.refreshToken,refreshTokenOptions)
+         res.cookie("role",'user')
+         if(user){
+             console.log(" usersss",user.accessToken)
+         }
+         res.status(200).json({token:user?.accessToken,role:'admin'})
+    }
 }
