@@ -5,6 +5,8 @@ import { IuserRepository } from "../../../../useCases/interface/repositoryInterf
 
 import {createUser,findbyEmail} from './user/ index'
 import { login } from "../../../../useCases/useCases/user/login";
+import { getAllusers } from "./user/getAlllusers";
+import { blockuser } from "./user/block";
 
 export class userRepository implements IuserRepository{
     constructor(private userModels: typeof userModel){}
@@ -19,5 +21,11 @@ export class userRepository implements IuserRepository{
     async  singup(email: string): Promise<string> {
         return "jiii"
     }
-    
+    async  getAllusers(): Promise<string> {
+        return await getAllusers(this.userModels)
+    }
+    async  blockUser(id: string): Promise<any> {
+        console.log("josjdfs hhhhheheheh")
+        return await blockuser(id,userModel)
+    }
 }

@@ -8,6 +8,7 @@ export interface Iorganizer {
     companyLicense: any,
     companyInsurance: any,
     bankPassbook: any,
-    approved?:boolean
+    approved?:boolean,
+    blocked?:boolean,
 
 }

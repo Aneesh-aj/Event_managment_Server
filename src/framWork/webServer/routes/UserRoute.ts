@@ -16,6 +16,8 @@ export function UserRoute(router: Route){
         console.log("entering to the  router")
          userController.organizerLogin(req, res, next)
     })
+
+   
     return router
 
 }

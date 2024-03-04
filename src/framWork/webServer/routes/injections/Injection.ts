@@ -32,8 +32,8 @@ import { AdminRepository } from "../../../database/repository/adminRepository/ad
 
 const adminrepository = new AdminRepository()
 
-const adminusecase = new AdminUsecase(bycryptsurvice,adminrepository,jwttoken)
 const organizerrepository = new OrganizerRepository(organizerModel)
+const adminusecase = new AdminUsecase(bycryptsurvice,adminrepository,jwttoken,organizerrepository,userrepository)
 const organizerusecase = new  OrganizerUseCase(organizerrepository,bycryptsurvice,otpGenerate,otprepository,sentemail)
 const organizerController = new  OrganizerController(organizerusecase)
 const adminController = new AdminController(adminusecase)

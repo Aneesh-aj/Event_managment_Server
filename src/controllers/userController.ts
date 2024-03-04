@@ -37,12 +37,12 @@ export class UserController{
          console.log(
             "hte user",user
          )
-         res.cookie("accesToken",user?.Tokens.accessToken,accessTokenOptions)
-         res.cookie("refreshToken",user?.Tokens.refreshToken,refreshTokenOptions)
+         res.cookie("accesToken",user?.accessToken,accessTokenOptions)
+        //  res.cookie("refreshToken",user?.refreshToken,refreshTokenOptions)
          res.cookie("role",'user')
          if(user){
              console.log(" usersss",user.accessToken)
          }
-         res.status(200).json({token:user?.accessToken,role:'admin'})
+         res.status(200).json({token:user?.accessToken,role:'user'})
     }
 }
